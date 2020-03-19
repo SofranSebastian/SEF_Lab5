@@ -1,20 +1,29 @@
 package loose.oose.fis.documents;
 
-public abstract class WORD extends Document{
-    protected String[] continut;
+import java.util.Arrays;
 
-    public Document(String[] continut) {
-        this.continut = continut;
+public class WORD extends Document {
+    public WORD(String[] continut) {
+        super(continut);
     }
 
-    public abstract String[] analizeaza();
+    @Override
+    public String[] analizeaza() {
+        String[] res = new String[continut.length];
+        int      pos = 0;
+
+        for (String cuvant : continut) {
+            if (!cuvant.contains(":")) {
+                res[pos] = cuvant;
+                pos++;
+            }
+        }
+
+        return Arrays.copyOf(res, pos);
+    }
 
     @Override
     public String toString() {
-        String res = "";
-        for (String cuvant : continut) {
-            res += cuvant + " ";
-        }
-        return res;
+        return "WORD " + super.toString();
     }
 }
